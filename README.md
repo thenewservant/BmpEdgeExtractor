@@ -26,4 +26,10 @@ Usage:
   gives
   <img width="250" alt="ex2To (2)" src="https://user-images.githubusercontent.com/24901834/147371374-2064c2c7-3631-4555-b51c-ea96a37c30d6.png">
 
+<i><em>On complex images:</em></i>
+
+  input
+  ![rer](https://user-images.githubusercontent.com/24901834/147371516-579788d5-0f50-45b2-87a3-e047771fcf59.png)
+  gives
+  ![rer2](https://user-images.githubusercontent.com/24901834/147371518-c8893621-0b33-431e-b5f8-0730e3b13604.png)
 
