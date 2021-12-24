@@ -1,5 +1,6 @@
 # BmpEdgeExtractor
 Simple Edge extractor for Microsoft Bitmap files.
+Supports most BMP files out there, except OS/2, Windows 2.0 Bitmaps or earlier ones.
 
 Usage: 
 
