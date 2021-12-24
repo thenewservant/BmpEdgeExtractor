@@ -6,6 +6,7 @@
 #include "bmputils/savebmp.h"
 
 FILE *checkfile(int, char**);
+void usage();
 
 int main( int argc, char* argv[]){
 
@@ -66,9 +67,9 @@ FILE *checkfile(int argc, char **argv){
 
     uint32_t val=0;
 
-    fread(&tmp, 4,1, val);
+    fread(&val, 4,1, tmp);
 
-        if (tmp==0x4d42){
+        if (val==0x4d42){
             printf("Invalid Microsoft Bitmap image");
             exit(0);
         }

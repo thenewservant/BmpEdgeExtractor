@@ -12,20 +12,18 @@ bmparray *loadbmp(bmpinfo *info, FILE *fileptr){
     uint32_t width=info->width;
     uint32_t bpp=NEEDEDBYTES(info->bitsperpixel);
 
-    uint8_t padding=(4*(1+(bpp*width)/4))%(bpp*width);// computes padding such that the length of every pixel array row is a multiple of 4
-
+    uint8_t padding=((width*bpp%4)==0)?0:(4*(1+(bpp*width)/4))%(bpp*width);// computes padding such that the length of every pixel array row is a multiple of 4
+    printf("\n,%d",padding);
     bmparray *image=bmparrayallocate(height,width,bpp,padding);
 
     fseek(fileptr,info->startpoint,0);
 
     for (int i=0;i<height;i++){
         for (int j=0;j<width;j++){
-            for (int k=bpp-1;k>=0;k--){
-
+            for (int k=0;k<bpp;k++){
+            	uint8_t dump=0;
                 fread(&image->data[i][j][k], 1,1, fileptr);
-
             }
-
         }
 
         fseek(fileptr,padding,SEEK_CUR); //skips padding
@@ -49,7 +47,7 @@ bmparray *bmparrayallocate(int x, int y, int z,uint8_t padding){
 
         img->data[i]=malloc(y*sizeof(uint8_t*));
         for (j=0;j<y;j++){
-           img->data[i][j]=malloc(z*sizeof(uint8_t));
+           img->data[i][j]=calloc(z,sizeof(uint8_t));
         }
     }
 

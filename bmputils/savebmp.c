@@ -12,7 +12,7 @@ int savebmp(bmpinfo *info, bmparray *arr, char* path){
 	//Writing the full header into the save file
 
 	fwrite(info->fullbmpheader, info->startpoint,1,svptr);
-	uint8_t dummy=0;
+	uint8_t dummy=35;
 
 	 for (int i=0;i<info->height;i++){
 	        for (int j=0;j<info->width;j++){
@@ -22,7 +22,9 @@ int savebmp(bmpinfo *info, bmparray *arr, char* path){
 
 	            }
 	        }
-	        fwrite(&dummy,arr->padding,1,svptr);
+
+	        	fwrite(&dummy,arr->padding,1,svptr);
+
 	 }
 
 	return 0;
