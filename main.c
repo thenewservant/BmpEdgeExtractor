@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "bmputils/bmpinfo.h"
 #include "bmputils/loadbmp.h"
 #include "bmpfilters/edgeextractor.h"
 #include "bmputils/savebmp.h"
 
-FILE *checkfile(int, char**);
+FILE *checkfile(char*);
 void usage();
 
 int main( int argc, char* argv[]){
-
 
     if (argc==1){
     	usage();
@@ -26,7 +26,7 @@ int main( int argc, char* argv[]){
 
     if (argc==3){
     	if (!strcmp(argv[1], "-i") || !strcmp(argv[1], "--info")){
-    		FILE *fileptr=checkfile(argc,argv);
+    		FILE *fileptr=checkfile(argv[2]);
 			bmpinfo *currentbmpinfo=initbmpinfo(fileptr);
 
 			printbmpinfo(currentbmpinfo);
@@ -35,7 +35,7 @@ int main( int argc, char* argv[]){
 
     }
 
-    FILE *fileptr=checkfile(argc,argv);
+    FILE *fileptr=checkfile(argv[1]);
 	bmpinfo *currentbmpinfo=initbmpinfo(fileptr);
 
 	printbmpinfo(currentbmpinfo);
@@ -52,13 +52,9 @@ int main( int argc, char* argv[]){
 }
 
 
-FILE *checkfile(int argc, char **argv){
-    if (!(argc>1)){
-        printf("Missing argument");
-        exit(0);
-    }
+FILE *checkfile(char *path){
 
-    FILE *tmp=fopen(argv[1],"rb");
+    FILE *tmp=fopen(path,"rb");
 
     if (!tmp){
         printf("File does not exist");
@@ -80,6 +76,6 @@ void usage(){
 	printf("\nUsage:");
 	printf("\n	bmpedge --help : this message");
 	printf("\n	bmpedge --info | -i  <file>  : shows bitmap info about the input file");
-	printf("\n	bmpedge <filein> <fileout> : detects edges in filein, and saves them into fileout");
+	printf("\n	bmpedge <filein> <fileout> : detects edges in filein, and saves them into fileout\n");
 	exit(0);
 }

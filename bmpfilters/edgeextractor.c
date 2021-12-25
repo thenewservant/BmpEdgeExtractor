@@ -9,10 +9,8 @@ bmparray *edgeextractor(bmparray *img,bmpinfo *info){
     uint32_t width=info->width;
     uint32_t bpp=img->bytesperpixel;
 
-    uint8_t padding=img->padding;
+    bmparray *map=bmparrayallocate(height,width,bpp,img->padding);
 
-    bmparray *map=bmparrayallocate(height,width,bpp,padding);
-    printf("%d,%d,%d",width,height,bpp);
     int diff=0;
 
     for (int i=0;i<height;i++){
@@ -20,15 +18,13 @@ bmparray *edgeextractor(bmparray *img,bmpinfo *info){
     		for (int k=0;k<bpp; k++){
 
     			diff=img->data[i][j][k]-img->data[i][j+1][k];
+
     			if (diff<0) diff=-diff;
-    			if (map->data[i][j][k]+diff>255)
-					{
+    			if (map->data[i][j][k]+diff>255){
 					map->data[i][j][k]=255;
-					}
-				else{
+				}else{
 					map->data[i][j][k]+=diff;
 				}
-    			map->data[i][j][k]=diff;
     		}
     	}
     }
@@ -36,13 +32,11 @@ bmparray *edgeextractor(bmparray *img,bmpinfo *info){
     for (int i=0;i<height-1;i++){
         	for (int j=0; j< width; j++){
         		for (int k=0;k<bpp; k++){
-        			int diff=img->data[i][j][k]-img->data[i+1][j][k];
+        			diff=img->data[i][j][k]-img->data[i+1][j][k];
         			if (diff<0) diff=-diff;
-        			if (map->data[i][j][k]+diff>255)
-        				{
+        			if (map->data[i][j][k]+diff>255){
         				map->data[i][j][k]=255;
-        				}
-        			else{
+        			}else{
         				map->data[i][j][k]+=diff;
         			}
         		}
